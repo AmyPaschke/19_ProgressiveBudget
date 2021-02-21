@@ -13,36 +13,36 @@ request.onupgradeneeded = ({ target }) => {
   db.createObjectStore("pending", { autoIncrement: true });
 };
 
-request.onerror = function (event) {
-  console.log(event.target.errorCode);
-};
-
 request.onsuccess = ({ target }) => {
   db = target.result;
 
-  // check to see data base is online
+  // checks if app is online
   if (navigator.onLine) {
     checkDatabase();
   }
 };
 
-function saveBudget(record) {
-  const payment = db.payment(["pending"], "readwrite");
-  const store = payment.objectStore("pending");
+request.onerror = function (event) {
+  console.log(event.target.errorCode);
+};
+
+function saveRecord(record) {
+  const transaction = db.transaction(["pending"], "readwrite");
+  const store = transaction.objectStore("pending");
 
   store.add(record);
 }
 
 function checkDatabase() {
-  const payment = db.payment(["pending"], "readwrite");
-  const store = payment.objectStore("pending");
-  const pullInfo = store.pullInfo();
+  const transaction = db.transaction(["pending"], "readwrite");
+  const store = transaction.objectStore("pending");
+  const getAll = store.getAll();
 
-  pullInfo.onsuccess = function () {
-    if (pullInfo.result.length > 0) {
-      fetch("/api/payment/bulk", {
+  getAll.onsuccess = function () {
+    if (getAll.result.length > 0) {
+      fetch("/api/transaction/bulk", {
         method: "POST",
-        body: JSON.stringify(pullInfo.result),
+        body: JSON.stringify(getAll.result),
         headers: {
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json",
@@ -52,8 +52,8 @@ function checkDatabase() {
           return response.json();
         })
         .then(() => {
-          const payment = db.payment(["pending"], "readwrite");
-          const store = payment.objectStore("pending");
+          const transaction = db.transaction(["pending"], "readwrite");
+          const store = transaction.objectStore("pending");
           store.clear();
         });
     }
