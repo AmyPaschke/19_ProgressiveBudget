@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.PORT || "mongodb://localhost/budget", {
+mongoose.connect(process.env.PORT || "mongodb://localhost/FitnessTracker", {
   useNewUrlParser: true,
   useFindAndModify: false,
 });
