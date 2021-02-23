@@ -18,13 +18,17 @@ Screenshot of the entry page:
 
 Here is an interior image of the Workout.js file:
 
-![image](https://user-images.githubusercontent.com/70075341/107315990-5d045580-6a5d-11eb-88c3-12bfbdf7eb55.JPG)
+![image](https://user-images.githubusercontent.com/70075341/108868319-b4590880-75bb-11eb-8040-c44454db2a31.JPG)
 
 ## Features
 
 - no SQL database (Mongo)
 
-- fitness tracker
+- ability to increase your budget
+
+- a button to remove funds
+
+- graph to tally spending
 
 ## License
 
