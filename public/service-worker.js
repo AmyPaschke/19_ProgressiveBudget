@@ -3,7 +3,7 @@ const DATA_CACHE_NAME = "data-cache-v1";
 
 let urlsToCache = [
   "/",
-  "/db.js",
+  "/database.js",
   "/index.js",
   "/manifest.json",
   "/styles.css",
